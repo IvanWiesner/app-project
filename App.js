@@ -19,7 +19,7 @@ export default function App() {
     // now this is an array of objects where each object has a key and vlaue property
     setCourseGoals(currentGoals => [
       ...currentGoals, 
-      { key: Math.random().toString(), value: enteredGoal }
+      { id: Math.random().toString(), value: enteredGoal }
     ]);
   }
   return (
@@ -37,6 +37,7 @@ export default function App() {
         />
       </View>
       <FlatList 
+      keyExtractor={(item, index) => item.id}
       data={courseGoals} 
       renderItem={itemData => (
         <View style={styles.listItem}>
