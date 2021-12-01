@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TextInput, Button, ScrollView } from 'react-native';
-
+import { StyleSheet, Text, View, TextInput, Button, ScrollView, FlatList } from 'react-native';
+// ScrollView - loads everything (slow)
+// FlatList - loads jut whats displayed (fast)
 export default function App() {
   const [enteredGoal, setEnteredGoal] = useState('');
   const [courseGoals, setCourseGoals] = useState([]); 
@@ -12,7 +13,14 @@ export default function App() {
 
   const addGoalHandler = () => {
     // previous state into the new state
-    setCourseGoals(currentGoals => [...currentGoals, enteredGoal]);
+    // there is no key element so the enteredGoals is jut a string 
+    // need to make the key a list or objects
+    // then you must value the string
+    // now this is an array of objects where each object has a key and vlaue property
+    setCourseGoals(currentGoals => [
+      ...currentGoals, 
+      { key: Math.random().toString(), value: enteredGoal }
+    ]);
   }
   return (
     // view = div
@@ -28,13 +36,14 @@ export default function App() {
         onPress={addGoalHandler}
         />
       </View>
-      <ScrollView>
-        {courseGoals.map(goal => (
-        <View key={goal} style={styles.listItem}>
-          <Text>{goal}</Text>
+      <FlatList 
+      data={courseGoals} 
+      renderItem={itemData => (
+        <View style={styles.listItem}>
+          <Text>{itemData.item.value}</Text>
           </View>
-        ))}
-      </ScrollView> 
+        )}
+        />
     </View>
   );
 }
