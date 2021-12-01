@@ -20,14 +20,30 @@ export default function App() {
       { id: Math.random().toString(), value: goalTitle }
     ]);
   }
+
+  const removeGoalHandler = goalId => {
+    setCourseGoals(currentGoals => {
+      // true if the id of the goal we are looking at is not = to the goal of the argument
+      // only want to keep it if they do match 
+      return currentGoals.filter((goal) => goal.id != goalId);
+    }); 
+  }
+
   return (
     // view = div
     <View style={styles.screen}>
       <GoalInput onAddGoal={addGoalHandler}/>
       <FlatList 
-      keyExtractor={(item, index) => item.id}
-      data={courseGoals} 
-      renderItem={itemData => <GoalItem title={itemData.item.value}/>}/>
+        keyExtractor={(item, index) => item.id}
+        data={courseGoals} 
+        renderItem={itemData => (
+          <GoalItem 
+            id={itemData.item.id} 
+            onDelete={removeGoalHandler} 
+            title={itemData.item.value}
+          />
+        )}
+      />
     </View>
   );
 }
