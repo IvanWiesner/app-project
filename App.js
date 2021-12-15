@@ -50,6 +50,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   screen: {
-    padding: 50
+    padding: 40
   },
 });
