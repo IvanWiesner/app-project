@@ -23,7 +23,7 @@ const GoalInput = props => {
       </View>
     )
 }
-
+// const yes 
 const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
